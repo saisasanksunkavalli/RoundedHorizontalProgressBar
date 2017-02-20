@@ -2,11 +2,11 @@ apply plugin: 'com.android.library'
 
 ext {
     bintrayRepo = 'RoundedHorizontalProgressBar'
-    bintrayName = 'roundedhorizontalprogress2'
+    bintrayName = 'roundedhorizontalprogress'
 
     publishedGroupId = 'com.sasank.roundedhorizontalprogress'
     libraryName = 'RoundedHorizontalProgressBar'
-    artifact = 'roundedhorizontalprogress2'
+    artifact = 'roundedhorizontalprogress'
 
     libraryDescription = 'An Android custom rounded Progress Bar that supports different Colors as progress'
 
