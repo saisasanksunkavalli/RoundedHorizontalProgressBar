@@ -3,5 +3,6 @@
     <declare-styleable name="RoundedHorizontalProgress">
         <attr name="backgroundColor" format="color"/>
         <attr name="progressColor" format="color"/>
+        <attr name="isRounded" format="boolean"/>
     </declare-styleable>
 </resources>

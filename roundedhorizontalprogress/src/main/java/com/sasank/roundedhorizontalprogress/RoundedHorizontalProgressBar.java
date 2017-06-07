@@ -1,11 +1,15 @@
 package com.sasank.roundedhorizontalprogress;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ScaleDrawable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.widget.ProgressBar;
 
@@ -17,6 +21,7 @@ public class RoundedHorizontalProgressBar extends ProgressBar {
 
     private int mBackgroundColor = Color.GRAY;
     private int mProgressColor = Color.BLUE;
+    private boolean mIsRounded = true;
 
     public RoundedHorizontalProgressBar(Context context) {
         super(context);
@@ -34,14 +39,24 @@ public class RoundedHorizontalProgressBar extends ProgressBar {
     }
 
     private void init() {
-        LayerDrawable layerDrawable = (LayerDrawable) getResources().getDrawable(R.drawable.rounded_progress_bar_horizontal);
+        LayerDrawable layerDrawable;
+        if(mIsRounded) {
+            layerDrawable = (LayerDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_progress_bar_horizontal, null);
+        } else {
+            layerDrawable = (LayerDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.progress_bar_horizontal, null);
+        }
         setProgressDrawable(layerDrawable);
         setProgressColors(mBackgroundColor, mProgressColor);
     }
 
     private void init(Context context, AttributeSet attrs) {
         setUpStyleable(context, attrs);
-        LayerDrawable layerDrawable = (LayerDrawable) getResources().getDrawable(R.drawable.rounded_progress_bar_horizontal);
+        LayerDrawable layerDrawable;
+        if(mIsRounded) {
+            layerDrawable = (LayerDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_progress_bar_horizontal, null);
+        } else {
+            layerDrawable = (LayerDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.progress_bar_horizontal, null);
+        }
         setProgressDrawable(layerDrawable);
 
         setProgressColors(mBackgroundColor, mProgressColor);
@@ -52,6 +67,7 @@ public class RoundedHorizontalProgressBar extends ProgressBar {
 
         mBackgroundColor = typedArray.getColor(R.styleable.RoundedHorizontalProgress_backgroundColor, Color.GRAY);
         mProgressColor = typedArray.getColor(R.styleable.RoundedHorizontalProgress_progressColor, Color.BLUE);
+        mIsRounded = typedArray.getBoolean(R.styleable.RoundedHorizontalProgress_isRounded, true);
 
         typedArray.recycle();
     }
@@ -61,10 +77,16 @@ public class RoundedHorizontalProgressBar extends ProgressBar {
         GradientDrawable gradientDrawable = (GradientDrawable) layerDrawable.findDrawableByLayerId(android.R.id.background);
         gradientDrawable.setColor(backgroundColor);
 
-        ScaleDrawable scaleDrawable = (ScaleDrawable) layerDrawable.findDrawableByLayerId(android.R.id.progress);
-        GradientDrawable progressGradientDrawable = (GradientDrawable) scaleDrawable.getDrawable();
-        progressGradientDrawable.setColor(progressColor);
-        setProgressDrawable(layerDrawable);
+        if(mIsRounded) {
+            ScaleDrawable scaleDrawable = (ScaleDrawable) layerDrawable.findDrawableByLayerId(android.R.id.progress);
+            GradientDrawable progressGradientDrawable = (GradientDrawable) scaleDrawable.getDrawable();
+            progressGradientDrawable.setColor(progressColor);
+            setProgressDrawable(layerDrawable);
+        } else {
+            ClipDrawable progressDrawable = (ClipDrawable) layerDrawable.findDrawableByLayerId(android.R.id.progress);
+            progressDrawable.setColorFilter(progressColor, PorterDuff.Mode.MULTIPLY);
+            setProgressDrawable(layerDrawable);
+        }
     }
 
     @Override

@@ -38,7 +38,8 @@
         android:layout_margin="20dp"
         android:layout_below="@id/progress_bar"
         app:backgroundColor="@color/violet_light"
-        app:progressColor="@color/violet"/>
+        app:progressColor="@color/violet"
+        app:isRounded="false"/>
 
     <com.sasank.roundedhorizontalprogress.RoundedHorizontalProgressBar
         android:id="@+id/progress_bar_2"
@@ -60,12 +61,13 @@
         android:indeterminate="false"
         android:maxHeight="15dp"
         android:minHeight="15dp"
-        android:progress="90"
+        android:progress="50"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
         android:layout_below="@id/progress_bar_2"
         app:backgroundColor="@color/sky_blue_light"
-        app:progressColor="@color/sky_blue"/>
+        app:progressColor="@color/sky_blue"
+        app:isRounded="false"/>
 
     <com.sasank.roundedhorizontalprogress.RoundedHorizontalProgressBar
         android:id="@+id/progress_bar_4"
