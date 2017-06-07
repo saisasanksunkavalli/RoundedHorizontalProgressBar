@@ -54,7 +54,7 @@ dependencies {
        <declare-styleable name="RoundedHorizontalProgress">
           <attr name="backgroundColor" format="color"/>
           <attr name="progressColor" format="color"/>
-          <attr name="isRounded" format="boolean"/>
+          <attr name="isRounded" format="boolean"/> <!-- Default Value is true(Rounded) -->
        </declare-styleable>
 ```
 
